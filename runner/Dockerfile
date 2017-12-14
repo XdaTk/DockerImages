@@ -52,7 +52,7 @@ RUN mkdir -p /opt/maven \
 ARG NODE_VERSION=8.9.1
 ARG YARN_VERSION=1.3.2
 ENV SASS_BINARY_SITE https://npm.taobao.org/mirrors/node-sass/
-ENV NODE_REGIEST https://registry.npm.taobao.org
+ENV NODE_REGIEST https://nexus.ops.heptagram.tech/repository/npm
 
 RUN curl -SLO "https://npm.taobao.org/mirrors/node/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
   && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
