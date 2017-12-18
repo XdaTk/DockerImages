@@ -6,16 +6,12 @@ RUN yum -y update && \
 	yum clean all -q && \
     rm -fr /var/cache/yum/* /tmp/yum_save*.yumtx /root/.pki
 
-ADD etc/redis.conf /etc/redis.conf
+ADD etc/redis.conf /etc/redis/redis.conf
 
 USER root
 
-VOLUME ["/var/lib/redis"]
-
-ENV HOME /var/lib/redis
-
 WORKDIR /var/lib/redis
 
-CMD ["/usr/bin/redis-server", "/etc/redis.conf"]
+CMD ["/usr/bin/redis-server", "/etc/redis/redis.conf"]
 
 EXPOSE 6379

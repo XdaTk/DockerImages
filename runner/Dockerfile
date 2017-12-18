@@ -14,8 +14,8 @@ ENV JAVA_HOME=/opt/${JDK}
 ENV DEFAULT_JVM_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=2 -XX:+UseG1GC"
 
 RUN yum install -y unzip \
- && export http_proxy=http://192.168.3.100:1087 \
- && export https_proxy=http://192.168.3.100:1087 \
+ && export http_proxy=http://192.168.1.119:1087 \
+ && export https_proxy=http://192.168.1.119:1087 \
  && curl -kL -H 'Cookie: oraclelicense=accept-securebackup-cookie' \
     "http://download.oracle.com/otn-pub/java/jdk/${JED}-${JAVA_BUILD}/${JAVA_HASH}/jdk-${JED}-linux-x64.tar.gz" \
     | tar -C /opt -zxf - \
@@ -51,7 +51,7 @@ RUN mkdir -p /opt/maven \
 # Node
 ARG NODE_VERSION=8.9.1
 ARG YARN_VERSION=1.3.2
-ENV SASS_BINARY_SITE https://npm.taobao.org/mirrors/node-sass/
+ENV SASS_BINARY_SITE https://nexus.ops.heptagram.tech/repository/node-ext/
 ENV NODE_REGIEST https://nexus.ops.heptagram.tech/repository/npm
 
 RUN curl -SLO "https://npm.taobao.org/mirrors/node/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
@@ -81,3 +81,8 @@ ENV KUBECONFIG="/root/.kube/local"
 RUN curl -LO "http://192.168.0.110/ops/images/kube/$KUBERNETES_VERSION/kubectl" \
    && mv kubectl /usr/local/bin/ \
    && chmod +x /usr/local/bin/kubectl
+
+# git
+RUN yum -y install git \
+    && yum clean all \
+    && rm -fr /var/cache/yum/* /tmp/yum_save*.yumtx /root/.pki
