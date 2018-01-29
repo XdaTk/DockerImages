@@ -1,10 +1,7 @@
-FROM centos:7.4.1708
+FROM registry.ops.heptagram.tech/devops/kubernetes/dockerimages/alpine:3.7
 
-RUN yum -y update && \
-    yum -y install epel-release && \
-	yum -y install redis && \
-	yum clean all -q && \
-    rm -fr /var/cache/yum/* /tmp/yum_save*.yumtx /root/.pki
+RUN apk add --no-cache redis \
+    && rm -rf /tmp/* /var/cache/apk/*
 
 ADD etc/redis.conf /etc/redis/redis.conf
 
@@ -12,6 +9,6 @@ USER root
 
 WORKDIR /var/lib/redis
 
-CMD ["/usr/bin/redis-server", "/etc/redis/redis.conf"]
+CMD ["redis-server", "/etc/redis/redis.conf"]
 
 EXPOSE 6379

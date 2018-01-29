@@ -1,4 +1,4 @@
-FROM registry.ops.heptagram.tech/devops/kubernetes/dockerimages/java/jre:8u151
+FROM registry.ops.heptagram.tech/devops/kubernetes/dockerimages/java/jre:alpine_8u162
 
 MAINTAINER deng xufeng<deng.xufeng@zhongfl.com>
 
@@ -9,6 +9,7 @@ ENV KAFKA_HEAP_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitF
 
 RUN mkdir -p /opt/kafka \
     && curl -SLs "http://mirrors.ustc.edu.cn/apache/kafka/$KAFKA_VERSION/kafka_$KAFKA_BIN_VERSION.tgz" | tar -xzf - --strip-components=1 -C /opt/kafka \
-    && rm -rf /opt/kafka/site-docs /opt/kafka/bin/windows
+    && rm -rf /opt/kafka/site-docs /opt/kafka/bin/windows \
+    && rm -rf /tmp/* /var/cache/apk/*
 
 WORKDIR /opt/kafka
