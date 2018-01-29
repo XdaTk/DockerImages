@@ -130,7 +130,7 @@ RUN apk add --no-cache --virtual .build-deps-docker tar \
 ENV KUBERNETES_VERSION 1.8.2
 ENV KUBECONFIG="/root/.kube/local"
 
-RUN curl -LO "http://192.168.0.110/ops/images/kube/$KUBERNETES_VERSION/kubectl" \
+RUN curl -LO "http://192.168.0.110/ops/images/app/kubectl" \
    && mv kubectl /usr/local/bin/ \
    && chmod +x /usr/local/bin/kubectl
 
